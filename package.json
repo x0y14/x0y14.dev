@@ -1,21 +1,31 @@
 {
   "name": "x0y14.dev",
-  "module": "index.ts",
-  "type": "module",
   "private": true,
-  "dev": "wrangler dev",
-  "build": "bunx --bun vite build",
+  "type": "module",
+  "module": "dist/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "bunx --bun vite build",
+    "deploy": "bunx --bun vite build && wrangler deploy",
+    "lint": "oxlint",
+    "typecheck": "oxlint --type-aware",
+    "fmt": "oxfmt --write .",
+    "fmt:check": "oxfmt ."
+  },
+  "dependencies": {
+    "chigusa": "^0.1.0"
+  },
   "devDependencies": {
-    "@types/bun": "latest",
-    "chigusa-vite-ssg": "^0.1.0",
     "@cloudflare/workers-types": "^4.20260127.0",
     "@hono/vite-build": "^1.9.2",
+    "@types/bun": "latest",
+    "chigusa-vite-ssg": "^0.1.0",
+    "oxfmt": "^0.27.0",
+    "oxlint": "^1.42.0",
+    "oxlint-tsgolint": "^0.11.2",
     "wrangler": "^4.61.0"
   },
   "peerDependencies": {
     "typescript": "^5"
-  },
-  "dependencies": {
-    "chigusa": "^0.1.0"
   }
 }
