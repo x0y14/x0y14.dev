@@ -1,0 +1,258 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+
+  // ====================
+  // プラグイン設定
+  // ====================
+  // 有効化するプラグインを指定
+  "plugins": [
+    "unicorn", // 汎用的なベストプラクティス
+    "typescript", // TypeScript固有のルール
+    "oxc", // oxc独自の最適化ルール
+    "react", // React関連ルール
+    "jsx-a11y", // アクセシビリティルール
+    "import", // インポート関連ルール
+    "vitest" // vitestルール
+  ],
+
+  // ====================
+  // カテゴリ設定
+  // ====================
+  // カテゴリ単位でルールの重要度を一括設定
+  "categories": {
+    "correctness": "error", // 明らかに間違ったコード → エラー
+    "suspicious": "warn", // 誤りの可能性が高いコード → 警告
+    "pedantic": "warn" // より厳密なチェック → 警告
+  },
+
+  // ====================
+  // 個別ルール設定
+  // ====================
+  "rules": {
+    // --------------------
+    // 基本ルール (ESLint互換)
+    // --------------------
+    "constructor-super": "error", // superの呼び出し忘れを検出
+    "for-direction": "error", // forループの方向ミスを検出
+    "no-async-promise-executor": "error", // Promiseのexecutorでasyncを禁止
+    "no-caller": "error", // arguments.caller/calleeを禁止
+    "no-class-assign": "error", // クラスへの再代入を禁止
+    "no-compare-neg-zero": "error", // -0との比較を禁止
+    "no-cond-assign": "error", // 条件式での代入を禁止
+    "no-const-assign": "error", // constへの再代入を禁止
+    "no-constant-binary-expression": "error", // 定数の二項演算を検出
+    "no-constant-condition": "error", // 定数条件を検出
+    "no-control-regex": "error", // 正規表現の制御文字を禁止
+    "no-debugger": "error", // debugger文を禁止
+    "no-delete-var": "error", // 変数のdeleteを禁止
+    "no-dupe-class-members": "error", // クラスメンバの重複を禁止
+    "no-dupe-else-if": "error", // else-ifの重複条件を禁止
+    "no-dupe-keys": "error", // オブジェクトキーの重複を禁止
+    "no-duplicate-case": "error", // switchのcase重複を禁止
+    "no-empty-character-class": "error", // 空の文字クラスを禁止
+    "no-empty-pattern": "error", // 空のパターンを禁止
+    "no-empty-static-block": "warn", // 空のstaticブロックを警告
+    "no-eval": "error", // evalを禁止（セキュリティ）
+    "no-ex-assign": "error", // 例外変数への再代入を禁止
+    "no-extra-boolean-cast": "warn", // 不要なBoolean変換を警告
+    "no-func-assign": "error", // 関数への再代入を禁止
+    "no-global-assign": "error", // グローバル変数への再代入を禁止
+    "no-import-assign": "error", // importへの再代入を禁止
+    "no-invalid-regexp": "error", // 無効な正規表現を禁止
+    "no-irregular-whitespace": "warn", // 不規則な空白文字を警告
+    "no-loss-of-precision": "error", // 精度低下を検出
+    "no-new-native-nonconstructor": "error", // 非コンストラクタのnewを禁止
+    "no-nonoctal-decimal-escape": "error", // 非8進数エスケープを禁止
+    "no-obj-calls": "error", // 組み込みオブジェクトの関数呼び出しを禁止
+    "no-self-assign": "error", // 自己代入を禁止
+    "no-setter-return": "error", // setterでのreturnを禁止
+    "no-shadow-restricted-names": "error", // 予約語のシャドウイングを禁止
+    "no-sparse-arrays": "error", // 疎配列を禁止
+    "no-this-before-super": "error", // super前のthis使用を禁止
+    "no-unassigned-vars": "error", // 未代入変数を禁止
+    "no-unsafe-finally": "error", // finallyでの危険な制御フローを禁止
+    "no-unsafe-negation": "error", // 危険な否定を禁止
+    "no-unsafe-optional-chaining": "error", // 危険なオプショナルチェーンを禁止
+    "no-unused-expressions": "warn", // 未使用の式を警告
+    "no-unused-labels": "error", // 未使用のラベルを禁止
+    "no-unused-private-class-members": "error", // 未使用のprivateメンバを禁止
+    "no-useless-backreference": "error", // 無意味な後方参照を禁止
+    "no-useless-catch": "warn", // 無意味なcatchを警告
+    "no-useless-escape": "warn", // 無意味なエスケープを警告
+    "no-useless-rename": "error", // 無意味なリネームを禁止
+    "no-with": "error", // with文を禁止
+    "require-yield": "error", // generatorでyieldを必須に
+    "use-isnan": "error", // NaN比較にisNaNを強制
+    "valid-typeof": "error", // typeofの有効な比較を強制
+
+    // --------------------
+    // 追加の基本ルール（厳格化）
+    // --------------------
+    "no-console": ["warn", { "allow": ["error"] }], // console文があれば警告（console.errorは許可）
+    "no-var": "error", // var宣言を禁止（let/constを使用）
+    "prefer-const": "error", // 再代入されない変数はconstを使用
+    "eqeqeq": "error", // 厳密等価演算子（===）を強制
+    "no-shadow": "error", // 変数のシャドウイングを禁止
+    // "no-ternary": "warn", // 三項演算子を警告
+    "no-nested-ternary": "error", // ネストされた三項演算子を禁止
+    "no-unneeded-ternary": "error", // 不要な三項演算子を禁止
+
+    // --------------------
+    // 未使用変数の設定（強化版）
+    // --------------------
+    // _で始まる変数は無視、それ以外の未使用変数はエラー
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "all", // 全ての引数をチェック
+        "argsIgnorePattern": "^_", // _で始まる引数は無視
+        "caughtErrors": "all", // catchの引数もチェック
+        "caughtErrorsIgnorePattern": "^_", // _で始まるcatch引数は無視
+        "destructuredArrayIgnorePattern": "^_", // _で始まる分割代入要素は無視
+        "varsIgnorePattern": "^_", // _で始まる変数は無視
+        "ignoreRestSiblings": true // rest要素の兄弟は無視
+      }
+    ],
+
+    // --------------------
+    // oxc独自ルール
+    // --------------------
+    "oxc/bad-array-method-on-arguments": "error", // argumentsへの配列メソッドを禁止
+    "oxc/bad-char-at-comparison": "error", // charAtの不正な比較を検出
+    "oxc/bad-comparison-sequence": "error", // 不正な比較の連鎖を検出
+    "oxc/bad-min-max-func": "error", // min/maxの誤用を検出
+    "oxc/bad-object-literal-comparison": "error", // オブジェクトリテラルの比較を検出
+    "oxc/bad-replace-all-arg": "error", // replaceAllの引数ミスを検出
+    "oxc/const-comparisons": "error", // 定数同士の比較を検出
+    "oxc/double-comparisons": "error", // 二重比較を検出
+    "oxc/erasing-op": "error", // 値を消す演算を検出
+    "oxc/missing-throw": "error", // throwの欠落を検出
+    "oxc/number-arg-out-of-range": "error", // 範囲外の数値引数を検出
+    "oxc/only-used-in-recursion": "warn", // 再帰のみで使用される変数を警告
+    "oxc/uninvoked-array-callback": "error", // 未呼び出しの配列コールバックを検出
+
+    // --------------------
+    // TypeScriptルール
+    // --------------------
+    "typescript/await-thenable": "error", // thenable以外のawaitを禁止
+    "typescript/no-array-delete": "error", // 配列要素のdeleteを禁止
+    "typescript/no-base-to-string": "warn", // 基本型のtoStringを警告
+    "typescript/no-duplicate-enum-values": "error", // enumの値重複を禁止
+    "typescript/no-duplicate-type-constituents": "error", // 型の重複構成要素を禁止
+    "typescript/no-extra-non-null-assertion": "error", // 余分な非nullアサーションを禁止
+    "typescript/no-floating-promises": "error", // 処理されないPromiseを禁止
+    "typescript/no-for-in-array": "error", // 配列のfor-inを禁止
+    "typescript/no-implied-eval": "error", // 暗黙のevalを禁止（セキュリティ）
+    "typescript/no-meaningless-void-operator": "warn", // 無意味なvoid演算子を警告
+    "typescript/no-misused-new": "error", // newの誤用を禁止
+    "typescript/no-misused-spread": "error", // spreadの誤用を禁止
+    "typescript/no-non-null-asserted-optional-chain": "error", // オプショナルチェーン後の非nullアサーションを禁止
+    "typescript/no-redundant-type-constituents": "warn", // 冗長な型構成要素を警告
+    "typescript/no-this-alias": "error", // thisのエイリアスを禁止
+    "typescript/no-unnecessary-parameter-property-assignment": "warn", // 不要なパラメータプロパティ代入を警告
+    "typescript/no-unsafe-declaration-merging": "error", // 危険な宣言マージを禁止
+    "typescript/no-unsafe-unary-minus": "error", // 危険な単項マイナスを禁止
+    "typescript/no-useless-empty-export": "warn", // 無意味な空エクスポートを警告
+    "typescript/no-wrapper-object-types": "error", // ラッパーオブジェクト型を禁止
+    "typescript/prefer-as-const": "error", // as constの使用を推奨
+    "typescript/require-array-sort-compare": "error", // sortに比較関数を必須に
+    "typescript/restrict-template-expressions": "warn", // テンプレート式の型を制限
+    "typescript/triple-slash-reference": "error", // トリプルスラッシュ参照を禁止
+    "typescript/unbound-method": "error", // バインドされていないメソッドを禁止
+
+    // --------------------
+    // TypeScript追加ルール（厳格化）
+    // --------------------
+    "typescript/no-explicit-any": "error", // any型の使用を禁止
+    "typescript/consistent-type-imports": "error", // 型インポートの一貫性を強制
+
+    // --------------------
+    // unicornルール
+    // --------------------
+    "unicorn/no-await-in-promise-methods": "error", // Promiseメソッド内のawaitを禁止
+    "unicorn/no-empty-file": "error", // 空ファイルを禁止
+    "unicorn/no-invalid-fetch-options": "error", // 無効なfetchオプションを禁止
+    "unicorn/no-invalid-remove-event-listener": "error", // 無効なremoveEventListenerを禁止
+    "unicorn/no-new-array": "warn", // new Arrayを警告
+    "unicorn/no-single-promise-in-promise-methods": "warn", // 単一Promiseのメソッド使用を警告
+    "unicorn/no-thenable": "error", // thenableプロパティを禁止
+    "unicorn/no-unnecessary-await": "warn", // 不要なawaitを警告
+    "unicorn/no-useless-fallback-in-spread": "warn", // スプレッドの無意味なフォールバックを警告
+    "unicorn/no-useless-length-check": "warn", // 無意味なlengthチェックを警告
+    "unicorn/no-useless-spread": "warn", // 無意味なスプレッドを警告
+    "unicorn/prefer-set-size": "warn", // Set.sizeの使用を推奨
+    "unicorn/prefer-string-starts-ends-with": "warn", // startsWith/endsWithの使用を推奨
+
+    // --------------------
+    // importルール
+    // --------------------
+    "import/no-duplicates": "error", // 重複インポートを禁止
+
+    // --------------------
+    // Reactルール
+    // --------------------
+    "react/jsx-key": "error", // リスト要素にkeyを強制
+    "react/no-direct-mutation-state": "error", // stateの直接変更を禁止
+    "react/react-in-jsx-scope": "off", // React 17+では不要（新JSX Transform）
+
+    // --------------------
+    // アクセシビリティルール (jsx-a11y)
+    // --------------------
+    "jsx-a11y/alt-text": "error", // 画像にalt属性を強制
+
+    // --------------------
+    // jestルール (vitest互換)
+    // --------------------
+    "jest/no-conditional-in-test": "off" // テスト内条件分岐を許可（プロパティベーステストで必要）
+  },
+
+  // ====================
+  // 各プラグインの設定
+  // ====================
+  "settings": {
+    "jsx-a11y": {
+      "polymorphicPropName": null,
+      "components": {},
+      "attributes": {}
+    },
+    "next": {
+      "rootDir": []
+    },
+    "react": {
+      "formComponents": [],
+      "linkComponents": [],
+      "version": null
+    },
+    "jsdoc": {
+      "ignorePrivate": false,
+      "ignoreInternal": false,
+      "ignoreReplacesDocs": true,
+      "overrideReplacesDocs": true,
+      "augmentsExtendsReplacesDocs": false,
+      "implementsReplacesDocs": false,
+      "exemptDestructuredRootsFromChecks": false,
+      "tagNamePreference": {}
+    },
+    "vitest": {
+      "typecheck": false
+    }
+  },
+
+  // ====================
+  // 環境設定
+  // ====================
+  "env": {
+    "builtin": true // 組み込みグローバル変数を有効化
+  },
+
+  // ====================
+  // グローバル変数
+  // ====================
+  "globals": {},
+
+  // ====================
+  // 無視パターン
+  // ====================
+  // リントから除外するファイル/ディレクトリ
+  "ignorePatterns": ["dist/**", "node_modules/**", ".wrangler"]
+}

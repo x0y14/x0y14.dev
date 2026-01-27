@@ -3,10 +3,19 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "dev": "wrangler dev",
+  "build": "bunx --bun vite build",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "chigusa-vite-ssg": "^0.1.0",
+    "@cloudflare/workers-types": "^4.20260127.0",
+    "@hono/vite-build": "^1.9.2",
+    "wrangler": "^4.61.0"
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "chigusa": "^0.1.0"
   }
 }
