@@ -1,6 +1,0 @@
-name = "me"
-compatibility_date = "2024-12-24"
-main = "dist/index.js"
-
-[observability]
-enabled = true
