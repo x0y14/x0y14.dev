@@ -1,0 +1,79 @@
+---
+title: "Sample"
+date: 2026-03-15
+description: "Sample Sample Sample Sample"
+tags: ["sample"]
+---
+
+# はじめに
+
+このブログは [Astro](https://astro.build) と [UnoCSS](https://unocss.dev) と [sparkio](https://github.com/x0y14/sparkio) で作られています。
+記事は [Markdoc](https://markdoc.dev) で書いています。
+
+## Code Block
+
+
+```ts
+import { defineElement, useState, useHost, useEffect, css } from "@sparkio/core"
+
+const MyCounter = defineElement(
+  {
+    tag: "my-counter",
+    props: {
+      initial: { type: Number, value: () => 0 },
+    },
+    styles: css`
+      :host { display: inline-block; }
+      button {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+      }
+    `,
+  },
+  (props) => {
+    const [count, setCount] = useState(props.initial)
+    const host = useHost()
+
+    useEffect(() => {
+      const root = host.current.shadowRoot!
+      const handler = () => setCount(count + 1)
+      root.addEventListener("click", handler)
+      return () => root.removeEventListener("click", handler)
+    }, [count])
+
+    return `<button>${count} clicked</button>`
+  },
+)
+
+export default MyCounter
+```
+
+## Alert
+
+{% alert type="note" %}
+Useful information that users should know, even when skimming content.
+{% /alert %}
+
+{% alert type="tip" %}
+Helpful advice for doing things better or more easily.
+{% /alert %}
+
+{% alert type="important" %}
+Key information users need to know to achieve their goal.
+{% /alert %}
+
+{% alert type="warning" %}
+Urgent info that needs immediate user attention to avoid problems.
+{% /alert %}
+
+{% alert type="caution" %}
+Advises about risks or negative outcomes of certain actions.
+{% /alert %}
+
+# Assets
+
+{%image src="/assets/sample-img-001.png" width="200" /%}
+{%image src="/assets/sample-img-001.png" height="50" /%}
+{%gif src="/assets/sample-gif-001.gif" height="30" /%}
+{%video src="/assets/sample-video-001.mp4" /%}

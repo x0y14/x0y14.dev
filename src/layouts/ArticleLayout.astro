@@ -1,0 +1,57 @@
+---
+import BaseLayout from "./BaseLayout.astro"
+import BlogToc from "../components/blog-toc.ts"
+
+interface Props {
+  title: string
+  date: Date
+  description: string
+  headings: { depth: number; slug: string; text: string }[]
+}
+const { title, date, description, headings } = Astro.props
+
+const dateStr = date.toLocaleDateString("ja-JP", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+})
+---
+<BaseLayout title={title} description={description}>
+  <div class="lg:grid lg:grid-cols-[1fr_220px] lg:gap-12 leading-[1.2]">
+    <article>
+      <header>
+        <h1 class="font-mincho text-4xl lg:text-5xl font-800 tracking-tight text-ink">{title}</h1>
+        <time class="font-mono text-xs text-ink-faint tracking-wide">{dateStr}</time>
+        <p class="font-sans text-base text-ink-muted mt-4 leading-relaxed">{description}</p>
+        <div class="w-12 h-px bg-accent mt-8"></div>
+      </header>
+
+      <div class="
+        prose
+        font-sans text-base leading-[1.85] text-ink
+        [&_h1]:font-mincho [&_h1]:text-3xl [&_h1]:font-800 [&_h1]:mt-16 [&_h1]:mb-6 [&_h1]:tracking-tight
+        [&_h2]:font-mincho [&_h2]:text-2xl [&_h2]:font-700 [&_h2]:mt-16 [&_h2]:mb-6 [&_h2]:tracking-tight
+        [&_h3]:font-mincho [&_h3]:text-xl [&_h3]:font-600 [&_h3]:mt-12 [&_h3]:mb-4
+        [&_p]:mb-6
+        [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-2 [&_a]:hover:text-accent-hover
+        [&_strong]:font-600
+        [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-6
+        [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-6
+        [&_li]:mb-2
+        [&_blockquote]:border-l-2 [&_blockquote]:border-accent [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-ink-muted
+        [&_hr]:border-border [&_hr]:my-12
+        [&_img]:rounded [&_img]:my-8
+        [&_:not(pre)>code]:font-mono [&_:not(pre)>code]:text-sm [&_:not(pre)>code]:bg-surface-paper [&_:not(pre)>code]:px-1.5 [&_:not(pre)>code]:py-0.5 [&_:not(pre)>code]:rounded
+      ">
+        <slot />
+      </div>
+    </article>
+
+    <!-- デスクトップ目次サイドバー -->
+    <aside class="hidden lg:block">
+      <div class="sticky top-24">
+        <BlogToc client:load headings={headings} />
+      </div>
+    </aside>
+  </div>
+</BaseLayout>

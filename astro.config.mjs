@@ -1,5 +1,13 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config"
+import { sparkioIntegration } from "@sparkio/astro"
+import UnoCSS from "@unocss/astro"
+import markdoc from "@astrojs/markdoc"
+import unoConfig from "./uno.config.ts"
 
-// https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  integrations: [
+    sparkioIntegration({ unoConfig }),
+    UnoCSS({ injectReset: true }),
+    markdoc(),
+  ],
+})

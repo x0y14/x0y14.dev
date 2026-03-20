@@ -1,5 +1,6 @@
 {
-  "name": "",
+  "name": "x0y14.dev",
+  "private": true,
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -12,6 +13,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.0.4"
+    "@astrojs/markdoc": "^1.0.0",
+    "@sparkio/astro": "^0.0.3",
+    "@sparkio/core": "^0.0.3",
+    "@sparkio/vite": "^0.0.3",
+    "@unocss/astro": "^66.6.6",
+    "@unocss/reset": "^66.6.6",
+    "astro": "^6.0.4",
+    "shiki": "^4.0.2",
+    "unocss": "^66.6.6"
   }
 }

@@ -1,0 +1,11 @@
+---
+import BlogAlert from "./blog-alert.ts"
+
+interface Props {
+  type: string
+}
+const { type } = Astro.props
+---
+<BlogAlert client:load type={type}>
+  <slot />
+</BlogAlert>

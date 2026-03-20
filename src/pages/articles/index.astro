@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import { getCollection } from "astro:content"
+
+const articles = (await getCollection("articles")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+)
+---
+<BaseLayout title="Articles">
+  <h1 class="font-mincho text-4xl lg:text-5xl font-800 tracking-tight text-ink mb-16">Articles</h1>
+
+  <ul class="space-y-0">
+    {articles.map((article) => {
+      const dateStr = article.data.date.toLocaleDateString("ja-JP", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      return (
+        <li class="group border-b border-border">
+          <a href={`/articles/${article.id}`} class="flex items-baseline gap-6 py-6 no-underline hover:bg-surface-paper transition-colors -mx-4 px-4 rounded">
+            <time class="font-mono text-xs text-ink-faint tracking-wide shrink-0 tabular-nums">{dateStr}</time>
+            <div class="min-w-0">
+              <h2 class="font-mincho text-lg font-600 text-ink group-hover:text-accent transition-colors truncate">{article.data.title}</h2>
+              <p class="font-sans text-sm text-ink-muted mt-1 line-clamp-1">{article.data.description}</p>
+            </div>
+          </a>
+        </li>
+      )
+    })}
+  </ul>
+</BaseLayout>

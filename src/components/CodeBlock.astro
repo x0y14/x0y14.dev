@@ -1,0 +1,18 @@
+---
+import BlogCopyCode from "./blog-copy-code.ts"
+import { codeToHtml } from "shiki"
+
+interface Props {
+  language: string
+  content: string
+}
+const { language, content } = Astro.props
+
+const html = await codeToHtml(content, {
+  lang: language || "text",
+  theme: "ayu-dark",
+})
+---
+<BlogCopyCode client:load>
+  <Fragment set:html={html} />
+</BlogCopyCode>
