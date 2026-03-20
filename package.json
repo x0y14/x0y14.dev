@@ -10,9 +10,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate-types": "wrangler types"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^13.1.2",
     "@astrojs/markdoc": "^1.0.0",
     "@sparkio/astro": "^0.0.3",
     "@sparkio/core": "^0.0.3",
@@ -22,5 +24,8 @@
     "astro": "^6.0.4",
     "shiki": "^4.0.2",
     "unocss": "^66.6.6"
+  },
+  "devDependencies": {
+    "wrangler": "^4.76.0"
   }
 }
